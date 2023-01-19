@@ -1,0 +1,16 @@
+<div class="parent">
+  <div class="login-box ">
+    <h2>Login</h2>
+    <form>
+      <div class="user-box">
+        <input type="text" name="username" required="" [(ngModel)]="loginObj.username">
+        <label>Username</label>
+      </div>
+      <div class="user-box">
+        <input type="password" name="password" required="" [(ngModel)]="loginObj.password">
+        <label>Password</label>
+      </div>
+      <button class="btn btn-sm btn-info" (click)="onLogin()">Login</button>
+    </form>
+  </div>
+</div>

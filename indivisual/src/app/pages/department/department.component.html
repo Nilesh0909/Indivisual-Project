@@ -1,0 +1,83 @@
+<div class="row mt-3">
+    <div class="col-8" [ngClass]="isSidePanelOpen?'col-8':'col-12'">
+        <div class="card">
+            <div class="card-header bg-secondary">
+                <div class="row">
+                    <div class="col-6 text-white">
+                        Department List
+                    </div>
+                    <div class="col-6 text-end">
+                        <button class="btn btn-sm btn-dark" (click)="addDept()">Add Dept</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered ">               
+                    <thead>
+                        <tr>
+                        <th>Dept Name</th>
+                        <th>Dept Head</th>
+                        <th>Created Date</th>                        
+                        </tr>
+                    </thead>                               
+                    <tbody>
+                        <tr *ngFor="let item of deptArray">
+                        <td>{{item.DeptName}}</td>
+                        <td>{{item.DeptHead}}</td>
+                        <td>{{item.CreatedDate}}</td>
+
+                        </tr>
+                    </tbody>              
+             </table>   
+            </div>
+        </div>
+    </div>
+    <div class="col-4" *ngIf="isSidePanelOpen">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <div class="row">
+                    <div class="col-6 text-white">
+                        Form
+                    </div>
+                    <div class="col-6 text-end">
+                        <button class="btn btn-sm btn-danger border" (click)="onCloseSidePanel()">Close</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form >
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">Dept Name</label>
+                            <input type="text" name="DeptName" class="form-control" [(ngModel)]="deptObject.DeptName">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">Dept Head</label>
+                            <input type="text" name="DeptHead" class="form-control" [(ngModel)]="deptObject.DeptHead">               
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">Created Date</label>
+                            <input type="text" name="CreatedDate" class="form-control" [(ngModel)]="deptObject.CreatedDate">                
+                        </div>
+                    </div>
+                    
+                    
+                     <div class="row mt-4">
+                        <div class="col-6 text-end">
+                            <button class="btn btn-sm btn-success border" >Save</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-sm btn-danger border">Cancel</button>
+                        </div>
+                     </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,89 @@
+<div class="row mt-3">
+    <div class="col-8 " [ngClass]="isSidePanelOpen?'col-8':'col-12'">
+        <div class="card">
+            <div class="card-header bg-secondary">
+                <div class="row">
+                    <div class="col-6 text-white">
+                        Create List
+                    </div>
+                    <div class="col-6 text-end">
+                        <button class="btn btn-sm btn-dark" (click)="addEmployee()">CreateRequest Form</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered ">               
+                    <thead>
+                        <tr>
+                        <th>RequestNo</th>
+                        <th>CreatedDate</th>
+                        <th>AssignedUserName</th>
+                        <th>EmployeeName</th>
+                        </tr>
+                    </thead>                               
+                    <tbody>
+                        <tr *ngFor="let item of reqArray">
+                        <td>{{item.RequestNo}}</td>
+                        <td>{{item.CreatedDate}}</td>
+                        <td>{{item.AssignedUserName}}</td>
+                        <td>{{item.EmployeeName}}</td>
+                        </tr>
+                    </tbody>              
+             </table>   
+            </div>
+        </div>
+    </div>
+    <div class="col-4" *ngIf="isSidePanelOpen">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <div class="row">
+                    <div class="col-6 text-white">
+                        Form
+                    </div>
+                    <div class="col-6 text-end">
+                        <button class="btn btn-sm btn-danger border" (click)="onCloseSidePanel()">Close</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form >
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">Request No</label>
+                            <input type="text" name="RequestNo" class="form-control" [(ngModel)]="reqObject.RequestNo">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">Create Date</label>
+                            <input type="text" name="userid" class="form-control" [(ngModel)]="reqObject.CreatedDate">               
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">User Name</label>
+                            <input type="text" name="userid" class="form-control" [(ngModel)]="reqObject.AssignedUserName">                
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="">Employee name</label>
+                            <input type="text" name="userid" class="form-control" [(ngModel)]="reqObject.EmployeeName">                              
+                        </div>
+                    </div>
+                    
+                     <div class="row mt-4">
+                        <div class="col-6 text-end">
+                            <button class="btn btn-sm btn-success border" >Save</button>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-sm btn-danger border">Cancel</button>
+                        </div>
+                     </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
