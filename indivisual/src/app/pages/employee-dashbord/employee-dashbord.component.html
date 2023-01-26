@@ -1,18 +1,95 @@
-<div class="container-fluid ">
-    <div class="row">
-      <div class="col-md-10 bg-info ">
-          <ul class="d-flex  align-item-center">
-            <!-- <li class="nav navbar "> <a href="" class="text-white  shadow-lg fs-5  nav-link " routerLink="user">User</a></li> -->
-             <li class="nav navbar "> <a href="" class="text-white  shadow-lg fs-5  nav-link " routerLink="employee">Empolyee</a></li>
-             <li class="nav navbar "> <a href="" class="text-white  shadow-lg fs-5  nav-link " routerLink="cerateRequest">Cerate Request</a></li>
-             <!-- <li class="nav navbar "> <a href="" class="text-white  shadow-lg fs-5  nav-link " routerLink="department">Department</a></li>
-             <li class="nav navbar "> <a href="" class="text-white  shadow-lg fs-5  nav-link " routerLink="requestList">Request List</a></li>
-             <li class="nav navbar "> <a href="" class="text-white  shadow-lg fs-5  nav-link " routerLink="reports">Reports</a></li>          -->
-            </ul>
+<div class="container-fluid">
+    <div class="row bg-white">
+      <div class="col-sm-12 p-0">
+        <div class="heading ms-5 mt-3 p-0">
+          <h2>Dashboard</h2>
+          <p class="text-primary">Welcome to MyRequest!</p>
         </div>
-        <div class="col-2 bg-info text-end ">
-            <button class="btn btn-md btn-danger border  mt-3 " (click)="onLogout()">Logout</button>
-        </div>
+      </div>
     </div>
-</div>
-<router-outlet></router-outlet>
+    <div class="row bg-gray p-5 pt-0">
+      <hr>
+      <!-- <div class="col-sm-4 p-0">
+        <div class="card shadow m-2">
+          <div class="card-body text-center text-white bg-secondary">
+            <h1>{{employeeDeptObj.totEmp}}</h1>
+            <h5>Total Employee</h5>
+          </div>
+          <div class="card-footer text-success text-center btn">More Info</div>
+        </div>
+      </div> 
+      <div class="col-sm-4 p-0">
+        <div class="card shadow m-2">
+          <div class="card-body text-center text-white bg-warning">
+            <h1>{{employeeDeptObj.totDept}}</h1>
+            <h5>Total Department</h5>
+          </div>
+          <div class="card-footer text-warning text-center">More Info</div>
+        </div>
+      </div>
+      <div class="col-sm-4 p-0">
+        <div class="card shadow m-2">
+          <div class="card-body text-center text-white bg-primary">
+            <h1>{{employeeDeptObj.totUsers}}</h1>
+            <h5>Total Users</h5>
+          </div>
+          <div class="card-footer text-primary text-center">More Info</div>
+        </div>
+      </div>-->
+      <div class="col-sm-4 p-0">
+        <div class="card shadow m-2">
+          <div class="card-body text-center text-white bg-danger">
+            <h1>{{employeeDeptObj.totRequest}}</h1>
+            <h5>Total Request</h5>
+          </div>
+          <div class="card-footer text-danger text-center">More Info</div>
+        </div>
+      </div>
+      <div class="col-sm-4 p-0">
+        <div class="card shadow m-2">
+          <div class="card-body text-center text-white bg-dark">
+            <h1>{{employeeDeptObj.todaysReq}}</h1>
+            <h5>Todays Request</h5>
+          </div>
+          <div class="card-footer text-dark text-center">More Info</div>
+        </div>
+      </div>
+      <div class="col-sm-4 p-0">
+        <div class="card shadow m-2">
+          <div class="card-body text-center text-white bg-info">
+            <h1>{{employeeDeptObj.totCompleted}}</h1>
+            <h5>Total completed</h5>
+          </div>
+          <div class="card-footer text-info text-center">More Info</div>
+        </div>
+      </div>
+      <div class="col-sm-4 p-0">
+        <div class="card shadow m-2">
+          <div class="card-body text-center text-white bg-success">
+            <h1>{{employeeDeptObj.totOpen}}</h1>
+            <h5>Total Open</h5>
+          </div>
+          <div class="card-footer text-success text-center">More Info</div>
+        </div>
+      </div>
+  
+      <div class="col-sm-4 p-0">
+        <div class="card shadow m-2">
+          <div class="card-body text-center text-white bg-success">
+            <h1>{{employeeDeptObj.totCompletedToday}}</h1>
+            <h5>Total Completed Today</h5>
+          </div>
+          <div class="card-footer text-success text-center">More Info</div>
+        </div>
+      </div>
+      <div class="col-sm-4 p-0">
+        <div class="card shadow m-2">
+          <div class="card-body text-center text-white bg-success">
+            <h1>{{employeeDeptObj.totOpenToday}}</h1>
+            <h5>Total Open Today</h5>
+          </div>
+          <div class="card-footer text-success text-center">More Info</div>
+        </div>
+      </div>
+    </div>
+  </div>

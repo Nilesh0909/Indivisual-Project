@@ -1,89 +1,148 @@
-<div class="row mt-3">
-    <div class="col-8 " [ngClass]="isSidePanelOpen?'col-8':'col-12'">
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8" [ngClass]="isCreateReq || isAssignReq ? 'col-md-8' : 'col-md-12'">
         <div class="card">
-            <div class="card-header bg-secondary">
-                <div class="row">
-                    <div class="col-6 text-white">
-                        Create List
-                    </div>
-                    <div class="col-6 text-end">
-                        <button class="btn btn-sm btn-dark" (click)="addEmployee()">CreateRequest Form</button>
-                    </div>
-                </div>
+          <div class="card-header bg-secondary">
+            <div class="row">
+              <div class="col-md-8">
+                <h5 class="fw-bold mt-2">Request List</h5>
+              </div>
+              <!-- <div class="col-md-4">
+                <button class="btn btn-sm btn-primary float-end mt-2" (click)="onAddRequest()">Add Request</button>
+              </div> -->
             </div>
-            <div class="card-body">
-                <table class="table table-bordered ">               
-                    <thead>
-                        <tr>
-                        <th>RequestNo</th>
-                        <th>CreatedDate</th>
-                        <th>AssignedUserName</th>
-                        <th>EmployeeName</th>
-                        </tr>
-                    </thead>                               
-                    <tbody>
-                        <tr *ngFor="let item of reqArray">
-                        <td>{{item.RequestNo}}</td>
-                        <td>{{item.CreatedDate}}</td>
-                        <td>{{item.AssignedUserName}}</td>
-                        <td>{{item.EmployeeName}}</td>
-                        </tr>
-                    </tbody>              
-             </table>   
-            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover table-striped text-center">
+              <thead class="bg-secondary">
+                <tr>
+                  <th>Sr.No</th>
+                  <th *ngIf="this.loggedUserData.Role !== 'Employee' && this.loggedUserData.Role !=='employee'">Employee</th>
+                  <th>Request No</th>
+                  <th>Department</th>
+                  <th>State</th>
+                  <th>Created On</th>
+                  <th>Expected By</th>
+                  <th>Severity</th>
+                  <th>Assigned To</th>
+                  <th>Completed On</th>
+                  <!-- <th>Action</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of requestList;let sr=index">
+                  <td>{{sr+1}}</td>
+                  <td *ngIf="this.loggedUserData.Role !== 'Employee' && this.loggedUserData.Role !=='employee'">{{item.EmployeeName}}</td>
+                  <td>{{item.RequestNo}}</td>
+                  <td>{{item.DeptName}}</td>
+                  <td>{{item.State}}</td>
+                  <td>{{item.CreatedDate | date:'dd-MMM-yy'}}</td>
+                  <td>{{item.ExpectedEndDate | date:'dd-MMM-yy'}}</td>
+                  <td>{{item.Severity}}</td>
+                  <td>
+                    <!-- {{loggedUserData.Role}} -->
+                    <button *ngIf="item.State == 'In-Progress'" (click)="onCloseReq(item.RequestId)" class="btn btn-warning btn-sm me-md-3 text-white">Close</button>
+                    <button *ngIf="item.State == 'Assigned' && loggedUserData.Role == 'AdminDept' || loggedUserData.Role == 'AdminDep'" (click)="onStartReq(item.RequestId)" class="btn btn-warning btn-sm me-md-3 text-white">Start</button>
+                    <button *ngIf="item.AssignedUserName == '--' && loggedUserData.Role == 'admin'" (click)="assign(item.RequestId,item.DeptId)" class="btn btn-warning btn-sm me-md-3 text-white">Assign</button>
+                    <span *ngIf="item.AssignedUserName != '--'">{{item.AssignedUserName}}</span>
+                  </td>
+                  <td>{{item.CompletedDate | date:'dd-MMM-yy'}}</td>
+                  <!-- <td>
+                    <button class="btn btn-warning btn-sm me-md-3 text-white">Edit</button>
+                    <button class="btn btn-danger btn-sm mt-1">Delete</button>
+                  </td> -->
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-    </div>
-    <div class="col-4" *ngIf="isSidePanelOpen">
+      </div>
+  <!-- Create Request Form -->
+      <div class="col-md-4" *ngIf="isCreateReq">
         <div class="card">
-            <div class="card-header bg-secondary text-white">
-                <div class="row">
-                    <div class="col-6 text-white">
-                        Form
-                    </div>
-                    <div class="col-6 text-end">
-                        <button class="btn btn-sm btn-danger border" (click)="onCloseSidePanel()">Close</button>
-                    </div>
+          <div class="card-header bg-secondary">
+            <div class="row">
+              <div class="col-md-8">
+                <h5 class="fw-bold mt-2">Create Request</h5>
+              </div>
+              <!-- <div class="col-md-4">
+                <button class="btn bg-danger float-end text-white" (click)="onCreateReqFormClose()">Close</button>
+              </div> -->
+            </div>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="fw-bold my-2"> Select Department</label>
+                  <select [(ngModel)]="createReqObj.DeptId" name="DeptId" id="" class="form-control">
+                    <option value="">Select</option>
+                    <option *ngFor="let item of departmentList" [value]="item.DeptId">{{item.DeptName}}</option>
+                  </select>
                 </div>
-            </div>
-            <div class="card-body">
-                <form >
-                    <div class="row">
-                        <div class="col-12">
-                            <label for="">Request No</label>
-                            <input type="text" name="RequestNo" class="form-control" [(ngModel)]="reqObject.RequestNo">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <label for="">Create Date</label>
-                            <input type="text" name="userid" class="form-control" [(ngModel)]="reqObject.CreatedDate">               
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <label for="">User Name</label>
-                            <input type="text" name="userid" class="form-control" [(ngModel)]="reqObject.AssignedUserName">                
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <label for="">Employee name</label>
-                            <input type="text" name="userid" class="form-control" [(ngModel)]="reqObject.EmployeeName">                              
-                        </div>
-                    </div>
-                    
-                     <div class="row mt-4">
-                        <div class="col-6 text-end">
-                            <button class="btn btn-sm btn-success border" >Save</button>
-                        </div>
-                        <div class="col-6">
-                            <button class="btn btn-sm btn-danger border">Cancel</button>
-                        </div>
-                     </div>
-                    
-                </form>
-            </div>
+                <div class="col-md-6">
+                  <label class="fw-bold my-2">Select Priority</label>
+                  <select [(ngModel)]="createReqObj.Severity" name="Severity" id="" class="form-control">
+                    <option value="">Select</option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="fw-bold my-2">Your Request</label>
+                  <textarea [(ngModel)]="createReqObj.RequestDetails" name="RequestDetails" id="" rows="3"
+                    class="form-control"></textarea>
+                </div>
+              </div>
+  
+              <div class="row mt-4 mb-3">
+                <div class="col-md-12">
+                  <button class="btn btn-sm btn-success m-4">Clear</button>
+                  <!-- <button class="btn btn-success btn-sm me-md-3" *ngIf="deptObj.clientId !== 0" (click)="onUpdateEmployee(deptObj.DeptId)">Update</button> -->
+                  <button class="btn btn-sm btn-danger" (click)="onCreateReq()">Create Request</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
+  <!-- Assign Request Form -->
+      <div class="col-md-4" *ngIf="isAssignReq">
+        <div class="card">
+          <div class="card-header bg-secondary">
+            <div class="row">
+              <div class="col-md-8">
+                <h5 class="fw-bold mt-2">Assign Request</h5>
+              </div>
+              <div class="col-md-4">
+                <button class="btn bg-danger float-end text-white" (click)="onAssignReqFormClose()">Close</button>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="row">
+                <div class="col-md-12">
+                  <label class="fw-bold my-2"> Select Employee</label>
+                  <select [(ngModel)]="assignObj.AssignedTo" name="AssignedTo" id="" class="form-control">
+                    <option value="">Select</option>
+                    <option *ngFor="let item of empBydeptList" [value]="item.EmployeeId">{{item.EmployeeName}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mt-4 mb-3">
+                <div class="col-md-12">
+                  <button class="btn btn-sm btn-success m-4">Clear</button>
+                  <!-- <button class="btn btn-success btn-sm me-md-3" *ngIf="deptObj.clientId !== 0" (click)="onUpdateEmployee(deptObj.DeptId)">Update</button> -->
+                  <button class="btn btn-sm btn-danger" (click)="onAssignEmp()">Assign Request</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-
+  </div>

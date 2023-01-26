@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CreateRequestComponent } from './pages/create-request/create-request.component';
 import { DepartmentComponent } from './pages/department/department.component';
 import { AdminDashboradComponent } from './pages/admin-dashborad/admin-dashborad.component';
-import { AuthgaurdGuard } from './pages/Authgaurd/authgaurd.guard';
+import { AuthgaurdGuard } from './core/guards/Authgaurd/authgaurd.guard';
 import { EmployeeComponent } from './pages/employee/employee.component';
 import { LoginComponent } from './pages/login/login.component';
 import { UserComponent } from './pages/user/user.component';
@@ -11,6 +11,10 @@ import { RequestListComponent } from './pages/request-list/request-list.componen
 import { ReportsComponent } from './pages/reports/reports.component';
 import { AdminDepartDashbordComponent } from './pages/admin-depart-dashbord/admin-depart-dashbord.component';
 import { EmployeeDashbordComponent } from './pages/employee-dashbord/employee-dashbord.component';
+import { LeaveComponent } from './pages/leave/leave.component';
+import { AdminLayoutComponent } from './pages/admin-layout/admin-layout.component';
+import { AdminDeptLayoutComponent } from './pages/admin-dept-layout/admin-dept-layout.component';
+import { EmployeeLayoutComponent } from './pages/employee-layout/employee-layout.component';
 
 const routes: Routes = [
   {
@@ -22,56 +26,71 @@ const routes: Routes = [
     component:LoginComponent
   },
   {
-    path:'admin-dashborad',
-    component:AdminDashboradComponent,
+    path:'',
+    component:AdminLayoutComponent,
     canActivate:[AuthgaurdGuard],
     children:[
       {
-        path:'user',
-        component:UserComponent
+        path:'admin-dashboard',
+        component:AdminDashboradComponent
       },
       {
-        path:'employee',
-        component:EmployeeComponent
-      },
-      {
-        path:'cerateRequest',
+        path:'admin-create-request',
         component:CreateRequestComponent
       },
       {
-        path:'department',
+        path:'admin-employee',
+        component:EmployeeComponent
+      },
+      
+      {
+        path:'admin-department',
         component:DepartmentComponent
       },
       {
-        path:'requestList',
+
+        path:'admin-leave',
         component:RequestListComponent
       },
-      {
-        path:'reports',
-        component:ReportsComponent
-      }
+     
     ]
   },
   {
-    path:'admin-depart-dashbord',
-    component:AdminDepartDashbordComponent,
-    canActivateChild:[AuthgaurdGuard],
+    path:'',
+    component:AdminDeptLayoutComponent,
+    canActivate:[AuthgaurdGuard],
     children:[
       {
-        path:'create-request',
+        path:'admin-dept-dash',
+        component:AdminDepartDashbordComponent
+      },
+      
+      {
+        path:'dept-create-request',
         component:CreateRequestComponent
-
+      },
+      {
+        path:'dept-leave',
+        component:LeaveComponent
       }
     ]
   },
   {
-    path:'employee-dashbord',
-    component:EmployeeDashbordComponent,
-    canActivateChild:[AuthgaurdGuard],
+    path:'',
+    component:EmployeeLayoutComponent,
+    canActivate:[AuthgaurdGuard],
     children:[
       {
-        path:'employee',
-        component:EmployeeComponent
+        path:'employee-dashbord',
+        component:EmployeeDashbordComponent,
+      },
+      {
+        path:'emp-create-request',
+        component:CreateRequestComponent
+      },
+      {
+        path:'emp-leave',
+        component:LeaveComponent
       }
     ]
   }

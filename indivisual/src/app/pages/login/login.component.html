@@ -3,14 +3,14 @@
     <h2>Login</h2>
     <form>
       <div class="user-box">
-        <input type="text" name="username" required="" [(ngModel)]="loginObj.username">
+        <input type="text" name="username" required="" [(ngModel)]="loginObj.UserName">
         <label>Username</label>
       </div>
       <div class="user-box">
-        <input type="password" name="password" required="" [(ngModel)]="loginObj.password">
+        <input type="password" name="password" required="" [(ngModel)]="loginObj.Password">
         <label>Password</label>
       </div>
-      <button class="btn btn-sm btn-info" (click)="onLogin()">Login</button>
+      <button class="btn btn-md btn-info" (click)="onLogin()">Login</button>
     </form>
   </div>
 </div>

@@ -9,10 +9,10 @@ export class MasterService {
 
   constructor(private http:HttpClient) { }
 
-  getLogin(obj:any):Observable<any>{
-    return this.http.post<any>('https://akbarapi.funplanetresort.in/api/MyRequest/Login',obj)
+  // getLogin(obj:any):Observable<any>{
+  //   return this.http.post<any>('https://akbarapi.funplanetresort.in/api/MyRequest/Login',obj)
 
-  }
+  // }
   getEmployee():Observable<any[]>{
     return this.http.get<any[]>('https://akbarapi.funplanetresort.in/api/MyRequest/GetEmployees')
   }

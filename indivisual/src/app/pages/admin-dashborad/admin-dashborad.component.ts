@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component ,OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+import {AnimateModule} from 'primeng/animate';
 
 @Component({
   selector: 'app-admin-dashborad',
@@ -8,13 +10,30 @@ import { Router } from '@angular/router';
 })
 export class AdminDashboradComponent implements OnInit {
   
-  constructor(private router:Router){
+  
+  getAdminDashArr: any[] = [];
+  adminObj: any = {
+      "totEmp": 0,
+      "totDept": 0,
+      "totUsers": 0,
+      "totRequest": 0,
+      "todaysReq": 0,
+      "totCompleted": 0,
+      "totOpen": 0,
+      "totCompletedToday": 0,
+      "totOpenToday": 0
   }
-    ngOnInit(): void {   
+  constructor(private http: HttpClient) {
   }
-  onLogout(){
-    localStorage.removeItem('token');
-    this.router.navigateByUrl('login');
+
+  ngOnInit(): void {
+    this.getAdminDash();
   }
- 
+  getAdminDash() {
+    debugger;
+    this.http.get('https://akbarapi.funplanetresort.in/api/MyRequest/getAdmminDashboard',this.adminObj).subscribe((res: any) => {
+      this.getAdminDashArr = res;
+      this.adminObj = this.getAdminDashArr[0];
+    })
+  }
 }
