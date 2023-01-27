@@ -9,9 +9,10 @@ import { Router } from '@angular/router';
 })
 export class AdminDepartDashbordComponent implements OnInit {
 
-  getAdminEeptDashArr: any[] = [];
-  deptArr: any[] = [];
+  getAdminDeptDashArr: any[] = [];
+  // deptArr: any[] = [];
   loggedUserData: any;
+
   employeeDeptObj: any = {
     "totReq": 0,
     "todaysReq": 0,
@@ -35,7 +36,7 @@ export class AdminDepartDashbordComponent implements OnInit {
   };
 
   constructor(private http: HttpClient)  {
-    const localData = localStorage.getItem('reqObj');
+    const localData = localStorage.getItem('reqObject');
     if (localData != null) {
       this.loggedUserData = JSON.parse(localData);
       this.createReqObj.EmployeeId = this.loggedUserData.EmployeeId;
@@ -46,10 +47,10 @@ export class AdminDepartDashbordComponent implements OnInit {
     this.getEmpDash();
   }
   getEmpDash() {
-    debugger;
-    this.http.get('https://akbarapi.funplanetresort.in/api/MyRequest/GetEmpDashboardById?id=' + this.loggedUserData.EmployeeId).subscribe((res: any) => {
-      this.getAdminEeptDashArr = res;
-      this.employeeDeptObj = this.getAdminEeptDashArr[0];
+    this.http.get('https://akbarapi.funplanetresort.in/api/MyRequest/GetAdminDeptDashboardById?id=' + this.loggedUserData.EmployeeId).subscribe((res: any) => {
+      this.getAdminDeptDashArr = res;
+      this.employeeDeptObj = this.getAdminDeptDashArr[0];
+      console.log(res);
     })
   }
 

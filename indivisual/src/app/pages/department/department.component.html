@@ -1,4 +1,3 @@
-
 <div class="row mt-3">
     <div class="col-8" [ngClass]="isSidePanelOpen?'col-8':'col-12'">
         <div class="card">
@@ -13,25 +12,25 @@
                 </div>
             </div>
             <div class="card-body">
-                <table class="table table-bordered ">               
+                <table class="table table-bordered ">
                     <thead>
                         <tr>
-                        <th>Dept Name</th>
-                        <th>Dept Head</th>
-                        <th>Created Date</th>                        
+                            <th>Dept Name</th>
+                            <th>Dept Head</th>
+                            <th>Created Date</th>
                         </tr>
-                    </thead>                               
+                    </thead>
                     <tbody>
                         <tr *ngFor="let item of deptArray">
-                        <td>{{item.DeptName}}</td>
-                        <td>{{item.DeptHead}}</td>
-                        <td>{{item.CreatedDate }}</td>
-                        <td>
-                            <button class="btn btn-sm btn-warning "(click)="onEdit(item.id)">Edti</button>
-                        </td>
+                            <td>{{item.DeptName}}</td>
+                            <td>{{item.DeptHead}}</td>
+                            <td>{{item.CreatedDate |date:'dd-MMM-yy'}}</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning " (click)="onEdit(item.id)">Edti</button>
+                            </td>
                         </tr>
-                    </tbody>              
-             </table>   
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -48,7 +47,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form >
+                <form>
                     <div class="row">
                         <div class="col-12">
                             <label for="">Dept Name</label>
@@ -58,18 +57,17 @@
                     <div class="row">
                         <div class="col-12">
                             <label for="">Dept Head</label>
-                            <input type="text" name="DeptHead" class="form-control" [(ngModel)]="deptObject.DeptHead">               
+                            <input type="text" name="DeptHead" class="form-control" [(ngModel)]="deptObject.DeptHead">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12">
                             <label for="">Created Date</label>
-                            <input type="text" name="CreatedDate" class="form-control" [(ngModel)]="deptObject.CreatedDate">                
+                            <input type="text" name="CreatedDate" class="form-control"
+                                [(ngModel)]="deptObject.CreatedDate">
                         </div>
                     </div>
-                    
-                    
-                     <div class="row mt-4">
+                    <div class="row mt-4">
                         <div class="col-6 text-end">
                             <button class="btn btn-success btn-sm" (click)="updateDept()">Update</button>
                             <button class="btn btn-sm btn-success border" (click)="saveDept()">Save</button>
@@ -77,11 +75,9 @@
                         <div class="col-6">
                             <button class="btn btn-sm btn-danger border">Cancel</button>
                         </div>
-                     </div>
-                    
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-

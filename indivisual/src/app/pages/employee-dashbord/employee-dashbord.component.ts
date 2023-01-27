@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./employee-dashbord.component.css']
 })
 export class EmployeeDashbordComponent implements OnInit {
-  getAdminEeptDashArr: any[] = [];
+  getAdminDeptDashArr: any[] = [];
   deptArr: any[] = [];
   loggedUserData: any;
   employeeDeptObj: any = {
@@ -34,7 +34,7 @@ export class EmployeeDashbordComponent implements OnInit {
   };
 
   constructor(private http: HttpClient) {
-    const localData = localStorage.getItem('reqObj');
+    const localData = localStorage.getItem('reqObject');
     if (localData != null) {
       this.loggedUserData = JSON.parse(localData);
       this.createReqObj.EmployeeId = this.loggedUserData.EmployeeId;
@@ -47,8 +47,8 @@ export class EmployeeDashbordComponent implements OnInit {
   getEmpDash() {
     debugger;
     this.http.get('https://akbarapi.funplanetresort.in/api/MyRequest/GetEmpDashboardById?id=' + this.loggedUserData.EmployeeId).subscribe((res: any) => {
-      this.getAdminEeptDashArr = res;
-      this.employeeDeptObj = this.getAdminEeptDashArr[0];
+      this.getAdminDeptDashArr = res;
+      this.employeeDeptObj = this.getAdminDeptDashArr[0];
     })
   }
 
