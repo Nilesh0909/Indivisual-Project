@@ -11,6 +11,7 @@ export class EmployeeComponent implements OnInit {
   selectedDept:string='';
   isSidePanelOpen:boolean=false;
   deptArray:any[]=[];
+  
   deptObject:any={
       "DeptId": 0,
       "DeptName": "", 
@@ -77,12 +78,44 @@ export class EmployeeComponent implements OnInit {
       this.empArray=res;
     })
   }
+  onEdit(id:any){
+    this.empObject=id;
+    this.isSidePanelOpen=true;
+  }
+  empUpdate(){
+    this.http.post('https://akbarapi.funplanetresort.in/api/MyRequest/UpdateEmployee?id='+this.empObject.DeptId,this.empObject).subscribe((res: any) => {
+      if (res) {
+        alert('Employee Updated');
+        this.getEmployee();
+      } else {
+        alert(res.message);
+      }
+    })
+  }
+
+  onDelete(id:any){
+    this.http.get('').subscribe((res:any)=>{
+
+    })
+  }
  
   addEmployee(){
     this.isSidePanelOpen=true;
   }
   onCloseSidePanel(){
     this.isSidePanelOpen=false;
+  }
+  oncleare(){
+    this.empObject ={
+      EmployeeName:'',
+      ContactNo:'',
+      EmailId:'',
+      Role:'',
+      UserName:'',
+      Password:'',
+      DeptId: 0,
+      ReportsTo: 0
+    }; 
   }
   
 }
