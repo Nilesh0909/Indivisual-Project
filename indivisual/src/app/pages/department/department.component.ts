@@ -31,14 +31,35 @@ export class DepartmentComponent implements OnInit {
   }
   saveDept(){
     this.http.post('https://akbarapi.funplanetresort.in/api/MyRequest/CreateDepartment',this.deptObject).subscribe((test:any)=>{
-
+    if(test) {
+      alert('Department Saved');
+      this.getDept();
+    } else{
+      alert(test.msg);
+    }
+    
     })
   }
-  onEdit(id:any){
-    this.deptObject=id;
+
+  
+  getDeptById(){
+    this.http.get('https://akbarapi.funplanetresort.in/api/MyRequest/GetDepartmentById?id='+this.deptObject.DeptId).subscribe((res:any)=>{
+      this.getDept();
+    })
+  }
+  onEdit(item:any){
+    this.deptObject =item;
+    this.isSidePanelOpen=true;
   }
   updateDept(){
-    this.http.post('https://akbarapi.funplanetresort.in/api/MyRequest/UpdateDepartment?id='+this.deptObject.DeptId,this.deptObject)
+    this.http.post('https://akbarapi.funplanetresort.in/api/MyRequest/UpdateDepartment?id='+this.deptObject.DeptId,this.deptObject).subscribe((res:any)=>{
+      this.getDept();
+    })
+  }
+  onDelete(id:any){
+    this.http.post('https://akbarapi.funplanetresort.in/api/MyRequest/DeleteDepartment?id='+id,this.deptObject).subscribe((res:any)=>{
+
+    })
   }
   addDept(){
     this.isSidePanelOpen=true;

@@ -111,6 +111,27 @@ assign(reqId: number, deptId: number) {
   this.currentReqDeptId = deptId;
   this.getEmployeeByDept();
 }
+onclearCerate(){
+  this.createReqObj = {
+    "RequestId": 0,
+    "RequestNo": "",
+    "EmployeeId": 0,
+    "CreatedDate": "",
+    "ExpectedEndDate": "",
+    "Severity": "",
+    "DeptId": 0,
+    "CompletedDate": "",
+    "AssignedTo": 0,
+    "State": "",
+    "RequestDetails": ""
+  }; 
+ }
+onclearAssing(){
+  this.assignObj = {
+    "RequestId": 0,
+    "AssignedTo": 0
+  };
+}
 
 onAddRequest() {
   // this.isCreateReq = true;

@@ -17,16 +17,18 @@
                         <tr>
                             <th>Dept Name</th>
                             <th>Dept Head</th>
-                            <th>Created Date</th>
+                            <th>Action</th>
+                            <!-- <th>Created Date</th> -->
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let item of deptArray">
                             <td>{{item.DeptName}}</td>
                             <td>{{item.DeptHead}}</td>
-                            <td>{{item.CreatedDate |date:'dd-MMM-yy'}}</td>
+                            <!-- <td>{{item.CreatedDate |date:'dd-MMM-yy'}}</td> -->
                             <td>
-                                <button class="btn btn-sm btn-warning " (click)="onEdit(item.id)">Edti</button>
+                                <button class="btn btn-sm btn-secondary mx-3"  (click)="onEdit(item)">Edit</button>
+                                <button class="btn btn-danger btn-sm" (click)="onDelete(item.DeptId)">Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -60,17 +62,17 @@
                             <input type="text" name="DeptHead" class="form-control" [(ngModel)]="deptObject.DeptHead">
                         </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-12">
                             <label for="">Created Date</label>
                             <input type="text" name="CreatedDate" class="form-control"
                                 [(ngModel)]="deptObject.CreatedDate">
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row mt-4">
                         <div class="col-6 text-end">
-                            <button class="btn btn-success btn-sm" (click)="updateDept()">Update</button>
-                            <button class="btn btn-sm btn-success border" (click)="saveDept()">Save</button>
+                            <button class="btn btn-success btn-sm" *ngIf="deptObject.DeptId != 0" (click)="updateDept()">Update</button>
+                            <button class="btn btn-sm btn-success border" *ngIf="deptObject.DeptName == 0"  (click)="saveDept()">Save</button>
                         </div>
                         <div class="col-6">
                             <button class="btn btn-sm btn-danger border">Cancel</button>
