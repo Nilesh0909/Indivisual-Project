@@ -58,7 +58,8 @@ export class DepartmentComponent implements OnInit {
   }
   onDelete(id:any){
     this.http.post('https://akbarapi.funplanetresort.in/api/MyRequest/DeleteDepartment?id='+id,this.deptObject).subscribe((res:any)=>{
-
+      const index = this.deptArray.findIndex(m=>m.DeptId ==id);
+      this.deptArray.splice(index,1);
     })
   }
   addDept(){

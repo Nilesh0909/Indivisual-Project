@@ -7,7 +7,6 @@ import { AuthgaurdGuard } from './core/guards/Authgaurd/authgaurd.guard';
 import { EmployeeComponent } from './pages/employee/employee.component';
 import { LoginComponent } from './pages/login/login.component';
 import { UserComponent } from './pages/user/user.component';
-import { RequestListComponent } from './pages/request-list/request-list.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { AdminDepartDashbordComponent } from './pages/admin-depart-dashbord/admin-depart-dashbord.component';
 import { EmployeeDashbordComponent } from './pages/employee-dashbord/employee-dashbord.component';
@@ -15,6 +14,7 @@ import { LeaveComponent } from './pages/leave/leave.component';
 import { AdminLayoutComponent } from './pages/admin-layout/admin-layout.component';
 import { AdminDeptLayoutComponent } from './pages/admin-dept-layout/admin-dept-layout.component';
 import { EmployeeLayoutComponent } from './pages/employee-layout/employee-layout.component';
+import { ApproveLeaveComponent } from './approve-leave/approve-leave.component';
 
 const routes: Routes = [
   {
@@ -50,7 +50,7 @@ const routes: Routes = [
       {
 
         path:'admin-leave',
-        component:RequestListComponent
+        component:LeaveComponent
       },
      
     ]
@@ -72,6 +72,10 @@ const routes: Routes = [
       {
         path:'dept-leave',
         component:LeaveComponent
+      },
+      {
+        path:'dept-approve-leave',
+        component:ApproveLeaveComponent
       }
     ]
   },
@@ -91,6 +95,10 @@ const routes: Routes = [
       {
         path:'emp-leave',
         component:LeaveComponent
+      },
+      {
+        path:'emp-approve-leave',
+        component:ApproveLeaveComponent
       }
     ]
   }

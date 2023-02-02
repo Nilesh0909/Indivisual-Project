@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component,OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 // import { FormControl, FormGroup } from '@angular/forms';
 import { MasterService } from 'src/app/core/service/master.service';
 @Component({
@@ -8,10 +9,12 @@ import { MasterService } from 'src/app/core/service/master.service';
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
+  isApiInProgress:boolean=false;
   selectedDept:string='';
   isSidePanelOpen:boolean=false;
   deptArray:any[]=[];
-  
+  $employee:Observable<any[]> |undefined;
+
   deptObject:any={
       "DeptId": 0,
       "DeptName": "", 
@@ -21,6 +24,7 @@ export class EmployeeComponent implements OnInit {
   };
   empArray:any[]=[];
   empObject:any={
+    EmployeeId:0,
     EmployeeName:'',
     ContactNo:'',
     EmailId:'',
@@ -49,19 +53,25 @@ export class EmployeeComponent implements OnInit {
     this.loadDept();
   }
   getEmployee(){
-    this.service.getEmployee().subscribe((res:any)=>{
-      this.empArray=res;
-    })
+  //  this.$employee=this.getEmployee();
+     this.service.getEmployee().subscribe((res:any)=>{
+       this.empArray=res;
+     })
   }
   saveEmployee(){
-    this.http.post('https://akbarapi.funplanetresort.in/api/MyRequest/CreateEmployee', this.empObject).subscribe((res: any) => {
+    if(this.isApiInProgress == false){
+      this.isApiInProgress= true;
+      this.service.saveEmp(this.empObject).subscribe((res: any) => {
+      this.isApiInProgress = false;  
       if (res) {
-        alert('Employee Saved');
-        this.getEmployee();
-      } else {
-        alert(res.message);
-      }
-    })
+          alert('Employee Saved');
+          this.getEmployee();
+        } else {
+          alert(res.message);
+        }
+      })
+    }
+   
   }
     // debugger;
     // this.service.saveEmp(this.empObject).subscribe((test:any)=>{
@@ -83,7 +93,7 @@ export class EmployeeComponent implements OnInit {
     this.isSidePanelOpen=true;
   }
   empUpdate(){
-    this.http.post('https://akbarapi.funplanetresort.in/api/MyRequest/UpdateEmployee?id='+this.empObject.DeptId,this.empObject).subscribe((res: any) => {
+    this.http.post('https://akbarapi.funplanetresort.in/api/MyRequest/UpdateEmployee?id='+this.empObject.EmployeeId,this.empObject).subscribe((res: any) => {
       if (res) {
         alert('Employee Updated');
         this.getEmployee();
@@ -94,8 +104,8 @@ export class EmployeeComponent implements OnInit {
   }
 
   onDelete(id:any){
-    this.http.get('').subscribe((res:any)=>{
-
+    this.http.get('https://akbarapi.funplanetresort.in/api/MyRequest/DeleteEmployee?id='+id).subscribe((res:any)=>{
+    
     })
   }
  

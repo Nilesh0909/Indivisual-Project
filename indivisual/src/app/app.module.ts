@@ -10,7 +10,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EmployeeComponent } from './pages/employee/employee.component';
 import { AuthgaurdGuard } from './core/guards/Authgaurd/authgaurd.guard';
 import { CreateRequestComponent } from './pages/create-request/create-request.component';
-import { RequestListComponent } from './pages/request-list/request-list.component';
 import { DepartmentComponent } from './pages/department/department.component';
 import { ReportsComponent } from './pages/reports/reports.component';
 import { EmployeeDashbordComponent } from './pages/employee-dashbord/employee-dashbord.component';
@@ -25,6 +24,7 @@ import { CustomInterceptor } from './core/interfaces/custom.interceptor';
 import { AdminLayoutComponent } from './pages/admin-layout/admin-layout.component';
 import { AdminDeptLayoutComponent } from './pages/admin-dept-layout/admin-dept-layout.component';
 import { EmployeeLayoutComponent } from './pages/employee-layout/employee-layout.component';
+import { ApproveLeaveComponent } from './approve-leave/approve-leave.component';
 
 
 @NgModule({
@@ -34,9 +34,7 @@ import { EmployeeLayoutComponent } from './pages/employee-layout/employee-layout
     AdminDashboradComponent,
     UserComponent,
     EmployeeComponent,
-
     CreateRequestComponent,
-    RequestListComponent,
     DepartmentComponent,
     ReportsComponent,
     EmployeeDashbordComponent,
@@ -46,7 +44,8 @@ import { EmployeeLayoutComponent } from './pages/employee-layout/employee-layout
     LeaveComponent,
     AdminLayoutComponent,
     AdminDeptLayoutComponent,
-    EmployeeLayoutComponent
+    EmployeeLayoutComponent,
+    ApproveLeaveComponent
   ],
   imports: [
     BrowserModule,

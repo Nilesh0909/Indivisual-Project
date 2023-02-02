@@ -1,1 +1,146 @@
-<p>leave works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8" [ngClass]="createLeave ?'col-md-8':'col-md-12' ">
+      <div class="card">
+        <div class="card-header bg-secondary">
+          <div class="row">
+            <div class="col-md-8">
+              <h5 class="fw-bold mt-2" *ngIf="loggedUserData.Role == 'admin' || loggedUserData.Role == 'Admin'">All Leaves</h5>
+              <h5 class="fw-bold mt-2" *ngIf="loggedUserData.Role == 'employee' || loggedUserData.Role == 'Employee' || loggedUserData.Role == 'adminDept' || loggedUserData.Role == 'AdminDept' || loggedUserData.Role == 'AdminDep'">Create Leaves</h5>
+            </div>
+            <div class="col-md-4">
+              <button class="btn btn-sm btn-primary float-end mt-2" (click)="onShow()" *ngIf="loggedUserData.Role == 'employee' || loggedUserData.Role == 'Employee' || loggedUserData.Role == 'adminDept' || loggedUserData.Role == 'AdminDept' || loggedUserData.Role == 'AdminDep'">Add Leaves</button>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover table-striped text-center">
+            <thead class="bg-secondary">
+              <tr>
+                <th>Sr.No</th>
+                <th>Employee Name</th>
+                <th>From Date</th>
+                <th>To Date</th>
+                <th>IsHalfDay</th>
+                <th>No Of Days</th>
+                <th>Leave Type</th>
+                <th>Leave Details</th>
+                <th>Approved Date</th>
+                <th>Is Approved</th>
+                <!-- <th
+                  *ngIf="loggedUserData.Role == 'employee' || loggedUserData.Role == 'Employee' || loggedUserData.Role == 'adminDept' || loggedUserData.Role == 'AdminDept' || loggedUserData.Role == 'AdminDep'">
+                  Action</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of leaveArr;let sr=index">
+                <td>{{sr+1}}</td>
+                <td>{{item.EmployeeName}}</td>
+                <td>{{item.FromDate | date:'dd-MMM-yy'}}</td>
+                <td>{{item.ToDate | date:'dd-MMM-yy'}}</td>
+                <td>{{item.IsHalfDay}}</td>
+                <td>{{item.NoOfDays}}</td>
+                <td>{{item.LeaveType}}</td>
+                <td>{{item.Details}}</td>
+                <td>{{item.ApprovedDate | date: 'dd-MMM-yyyy'}}</td>
+                <td>{{item.IsApproved == true? 'Approved':'Not Approved'}}</td>
+                <!-- <td
+                  *ngIf="loggedUserData.Role == 'employee' || loggedUserData.Role == 'Employee' || loggedUserData.Role == 'adminDept' || loggedUserData.Role == 'AdminDept' || loggedUserData.Role == 'AdminDep'">
+                  <button pButton pRipple label="Edit" class="btn-sm p-button-secondary me-2"
+                    (click)="onEdit(item)"></button>
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4" *ngIf="createLeave">
+      <div class="card">
+        <div class="card-header bg-secondary">
+          <div class="row">
+            <div class="col-md-8">
+              <h5 class="fw-bold mt-2">Add Leave</h5>
+            </div>
+            <div class="col-md-4">
+              <!-- <button class="btn bg-danger float-end text-white">Close</button> -->
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-md-6">
+                <label class="fw-bold my-2">From Date</label>
+                <input type="date" name="FromDate" class="form-control" placeholder="From Date"
+                  [(ngModel)]="addLeaveObj.FromDate">
+              </div>
+              <div class="col-md-6">
+                <label class="fw-bold my-2">To Date</label>
+                <input type="date" name="ToDate" class="form-control" placeholder="To Date"
+                  [(ngModel)]="addLeaveObj.ToDate">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <label class="fw-bold my-2">Leave Type</label>
+                <input type="text" name="LeaveType" class="form-control" placeholder="Leave Type"
+                  [(ngModel)]="  addLeaveObj.LeaveType">
+              </div>
+              <div class="col-md-6">
+                <label class="fw-bold my-2">Leave Details</label>
+                <input type="text" name="Details" class="form-control" placeholder="Details"
+                  [(ngModel)]="  addLeaveObj.Details">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <label class="fw-bold my-2">No Of Days</label>
+                <input type="number" name="No Of Days" class="form-control" placeholder="NoOfDays"
+                  [(ngModel)]="  addLeaveObj.NoOfDays">
+              </div>
+              <div class="col-md-6">
+                <label class="fw-bold my-2">IsHalfDay</label>
+                <input type="checkbox" name="IsHalfDay" placeholder="IsHalfDay"
+                  [(ngModel)]="  addLeaveObj.IsHalfDay">
+
+                <!-- <label class="fw-bold my-2">IsHalfDay</label>
+                <select name="IsHalfDay" [(ngModel)]="  addLeaveObj.IsHalfDay" class="form-control">
+                  <option value="Select">Select</option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select> -->
+              </div>
+            </div>
+
+            <!-- <div class="row">
+              <div class="col-md-6">
+                <label class="fw-bold my-2">IsApproved</label>
+                <select name="IsHalfDay" [(ngModel)]="  addLeaveObj.IsApproved" class="form-control">
+                  <option value="Select">Select</option>
+                  <option value="Approved">Approved</option>
+                  <option value="NotApproved">Not Approved</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="fw-bold my-2">Approved Date</label>
+                <input type="date" name="ApprovedDate" class="form-control" placeholder="ApprovedDate"
+                  [(ngModel)]="  addLeaveObj.ApprovedDate">
+              </div>
+            </div> -->
+            <div class="row mt-4 mb-3">
+              <div class="col-md-12">
+                <!-- <button class="btn btn-sm btn-success m-4" *ngIf="  addLeaveObj.clientId !== 0" (click)="onUpdateEmployee(  addLeaveObj.DeptId)">Save</button> -->
+                <button class="btn btn-success btn-sm me-md-3" (click)="onCreateLeave()">Add Leave</button>
+                <button class="btn btn-sm btn-danger">Clear</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+     
+  </div>
+</div>
