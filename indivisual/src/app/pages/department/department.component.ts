@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component ,OnInit } from '@angular/core';
-import { subscribeOn } from 'rxjs';
+import { subscribeOn, Subscription } from 'rxjs';
 import { MasterService } from 'src/app/core/service/master.service';
 
 @Component({
@@ -17,6 +17,10 @@ export class DepartmentComponent implements OnInit {
   "DeptHead": "",
   "CreatedDate": new Date()
   };
+  filteredDeptArr:any[]=[];
+  search: string = '';
+  sortMode:  boolean= true;
+  subcription:Subscription[]=[];
   constructor(private http:HttpClient,private service:MasterService){
 
   }
@@ -24,12 +28,44 @@ export class DepartmentComponent implements OnInit {
   ngOnInit(): void {
     this.getDept();
   }
-  getDept(){
+  private getDept(){
     this.service.getDepartment().subscribe((res:any)=>{
       this.deptArray=res;
+      this.filteredDeptArr=res;
+    
     })
   }
-  saveDept(){
+ public onFilter(event:any){
+    debugger;
+    this.filteredDeptArr = this.deptArray.filter((element:any) => {
+      let search =event;
+      let values = Object.values(element);
+      let flag = false
+      values.forEach((val: any) => {
+        if (val.toString().toLowerCase().indexOf(search) > -1) {
+          flag = true;
+          return;
+        }
+      })
+      if (flag) {
+        return element
+      }
+    });
+  }
+
+ 
+ public sort(key : string) {
+    debugger;
+    if(this.sortMode) {
+      this.sortMode = false;
+      this.deptArray.sort((a: any, b: any) => a[key].localeCompare(b[key]));
+    } else {
+      this.sortMode = true;
+      this.deptArray.sort((a: any, b: any) => b[key].localeCompare(a[key]));
+    }
+  }
+
+ public saveDept(){
     this.http.post('https://akbarapi.funplanetresort.in/api/MyRequest/CreateDepartment',this.deptObject).subscribe((test:any)=>{
     if(test) {
       alert('Department Saved');
@@ -42,31 +78,36 @@ export class DepartmentComponent implements OnInit {
   }
 
   
-  getDeptById(){
+ public getDeptById(){
     this.http.get('https://akbarapi.funplanetresort.in/api/MyRequest/GetDepartmentById?id='+this.deptObject.DeptId).subscribe((res:any)=>{
       this.getDept();
     })
   }
-  onEdit(item:any){
+  public onEdit(item:any){
     this.deptObject =item;
     this.isSidePanelOpen=true;
   }
-  updateDept(){
+  public updateDept(){
     this.http.post('https://akbarapi.funplanetresort.in/api/MyRequest/UpdateDepartment?id='+this.deptObject.DeptId,this.deptObject).subscribe((res:any)=>{
       this.getDept();
     })
   }
-  onDelete(id:any){
+  public onDelete(id:any){
     this.http.post('https://akbarapi.funplanetresort.in/api/MyRequest/DeleteDepartment?id='+id,this.deptObject).subscribe((res:any)=>{
       const index = this.deptArray.findIndex(m=>m.DeptId ==id);
       this.deptArray.splice(index,1);
     })
   }
-  addDept(){
+  public addDept(){
     this.isSidePanelOpen=true;
   }
-  onCloseSidePanel(){
+  public onCloseSidePanel(){
     this.isSidePanelOpen=false;
+  }
+  ngOnDestroy():void{
+    this.subcription.forEach(element=>{
+      element.unsubscribe();
+    })
   }
 
 

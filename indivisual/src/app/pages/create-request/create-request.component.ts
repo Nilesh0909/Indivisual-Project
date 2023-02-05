@@ -17,6 +17,7 @@ export class CreateRequestComponent implements OnInit {
   isAssignReq: boolean = false;
   currentReqDeptId: number = 0;
   empBydeptList: any[] = [];
+
   createReqObj = {
     "RequestId": 0,
     "RequestNo": "",
@@ -56,6 +57,7 @@ export class CreateRequestComponent implements OnInit {
 
   }
 
+
   getAssignReqByEmpId() {
     this.http.get("https://akbarapi.funplanetresort.in/api/MyRequest/GetAssignedRequestByUserId?userid=" + this.loggedUserData.EmployeeId).subscribe((res: any) => {
       this.requestList = res;
@@ -70,8 +72,41 @@ export class CreateRequestComponent implements OnInit {
   getAllReq() {
     this.http.get("https://akbarapi.funplanetresort.in/api/MyRequest/GetAllRequest").subscribe((res: any) => {
       this.requestList = res;
+      
     })
   }
+  // onFilter(event:any){
+  //   debugger;
+  //   this.filteredcreateArr = this.createReqObj.filter((element:any) => {
+  //     let search =event;
+  //     let values = Object.values(element);
+  //     let flag = false
+  //     values.forEach((val: any) => {
+  //       if (val.toString().toLowerCase().indexOf(search) > -1) {
+  //         flag = true;
+  //         return;
+  //       }
+  //     })
+  //     if (flag) {
+  //       return element
+  //     }
+  //   });
+  // }
+
+ 
+  // sort(key : string) {
+  //   debugger;
+  //   if(this.sortMode) {
+  //     this.sortMode = false;
+  //     this.createReqObj.sort((a: any, b: any) => a[key].localeCompare(b[key]));
+  //   } else {
+  //     this.sortMode = true;
+  //     this.createReqObj.sort((a: any, b: any) => b[key].localeCompare(a[key]));
+  //   }
+  // }
+
+  
+  
   getDepartments() {
     this.http.get("https://akbarapi.funplanetresort.in/api/MyRequest/GetDepartments").subscribe((res: any) => {
       this.departmentList = res;

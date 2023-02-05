@@ -2,22 +2,26 @@
   <div class="row">
     <div class="col-md-8" [ngClass]="isCreateReq || isAssignReq ? 'col-md-8' : 'col-md-12'">
       <div class="card">
-        <div class="card-header bg-secondary">
+        <div class="card-header bg-primary ">
           <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-4">
               <h5 class="fw-bold mt-2">Request List</h5>
+            </div>
+            <div class="col-4">
+              
             </div>
             <!-- <div class="col-md-4">
               <button class="btn btn-sm btn-primary float-end mt-2" (click)="onAddRequest()">Add Request</button>
             </div> -->
           </div>
         </div>
+
         <div class="table-responsive">
           <table class="table table-bordered table-hover table-striped text-center">
-            <thead class="bg-secondary">
+            <thead class="bg-primary">
               <tr>
                 <th>Sr.No</th>
-                <th *ngIf="this.loggedUserData.Role !== 'Employee' && this.loggedUserData.Role !=='employee'">Employee</th>
+                <th *ngIf="this.loggedUserData.Role !== 'Employee' && this.loggedUserData.Role !=='employee'" >Employee</th>
                 <th>Request No</th>
                 <th>Department</th>
                 <th>State</th>
@@ -60,7 +64,7 @@
 <!-- Create Request Form -->
     <div class="col-md-4" *ngIf="isCreateReq">
       <div class="card">
-        <div class="card-header bg-secondary">
+        <div class="card-header bg-primary">
           <div class="row">
             <div class="col-md-8">
               <h5 class="fw-bold mt-2">Create Request</h5>

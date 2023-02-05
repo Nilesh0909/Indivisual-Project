@@ -1,7 +1,7 @@
 <div class="row mt-3">
     <div class="col-8" [ngClass]="isSidePanelOpen?'col-8':'col-12'">
         <div class="card">
-            <div class="card-header bg-secondary">
+            <div class="card-header bg-primary">
                 <div class="row">
                     <div class="col-6 text-white">
                         Department List
@@ -12,22 +12,26 @@
                 </div>
             </div>
             <div class="card-body">
+                <input type="text" [(ngModel)]="search" (ngModelChange)="onFilter($event)" placeholder="search">
+               
                 <table class="table table-bordered ">
                     <thead>
-                        <tr>
-                            <th>Dept Name</th>
-                            <th>Dept Head</th>
-                            <th>Action</th>
+                        <tr class="bg-primary">
+                            <th class="th" style="width: 2%;">Sr.No</th>
+                            <th class="th text-center" style="width: 15%;"(click)="sort('DeptName')">Dept Name</th>
+                            <th class="th text-center"  style="width: 15%;"(click)="sort('DeptHead')">Dept Head</th>
+                            <th class="th text-center" style="width: 8%;">Action</th>
                             <!-- <th>Created Date</th> -->
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let item of deptArray">
-                            <td>{{item.DeptName}}</td>
-                            <td>{{item.DeptHead}}</td>
+                        <tr *ngFor="let item of filteredDeptArr;let sr=index" >
+                            <td class="td text-center">{{sr+1}}</td>
+                            <td class="td text-center">{{item.DeptName}}</td>
+                            <td class="td text-center">{{item.DeptHead}}</td>
                             <!-- <td>{{item.CreatedDate |date:'dd-MMM-yy'}}</td> -->
                             <td>
-                                <button class="btn btn-sm btn-secondary mx-3"  (click)="onEdit(item)">Edit</button>
+                                <button class="btn btn-sm btn-secondary ms-5 mx-2"  (click)="onEdit(item)">Edit</button>
                                 <button class="btn btn-danger btn-sm" (click)="onDelete(item.DeptId)">Delete</button>
                             </td>
                         </tr>
@@ -38,7 +42,7 @@
     </div>
     <div class="col-4" *ngIf="isSidePanelOpen">
         <div class="card">
-            <div class="card-header bg-secondary text-white">
+            <div class="card-header bg-primary text-white">
                 <div class="row">
                     <div class="col-6 text-white">
                         Form

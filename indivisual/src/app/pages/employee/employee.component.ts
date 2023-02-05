@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component,OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 // import { FormControl, FormGroup } from '@angular/forms';
 import { MasterService } from 'src/app/core/service/master.service';
 @Component({
@@ -14,16 +14,15 @@ export class EmployeeComponent implements OnInit {
   isSidePanelOpen:boolean=false;
   deptArray:any[]=[];
   $employee:Observable<any[]> |undefined;
-
-  deptObject:any={
+ 
+   deptObject:any={
       "DeptId": 0,
       "DeptName": "", 
       "DeptHead": " ",
       "CreatedDate":new Date()
-    
-  };
-  empArray:any[]=[];
-  empObject:any={
+   };
+   empArray:any[]=[];
+   empObject:any={
     EmployeeId:0,
     EmployeeName:'',
     ContactNo:'',
@@ -34,7 +33,11 @@ export class EmployeeComponent implements OnInit {
     DeptId: 0,
     ReportsTo: 0
   };
-
+  filteredempArr:any[]=[];
+  search: string = '';
+  sortMode:  boolean= true;
+  subcription:Subscription[]=[];
+ 
     // userForm : FormGroup;
   constructor(private http:HttpClient,private service :MasterService){
 
@@ -52,13 +55,46 @@ export class EmployeeComponent implements OnInit {
     this.getEmployee();
     this.loadDept();
   }
-  getEmployee(){
+
+
+ private getEmployee(){
   //  this.$employee=this.getEmployee();
      this.service.getEmployee().subscribe((res:any)=>{
        this.empArray=res;
+       this.filteredempArr=res;
      })
   }
-  saveEmployee(){
+  public onFilter(event:any){
+    debugger;
+    this.filteredempArr = this.empArray.filter((element:any) => {
+      let search =event;
+      let values = Object.values(element);
+      let flag = false
+      values.forEach((val: any) => {
+        if (val.toString().toLowerCase().indexOf(search) > -1) {
+          flag = true;
+          return;
+        }
+      })
+      if (flag) {
+        return element
+      }
+    });
+  }
+
+ 
+  public sort(key : string) {
+    debugger;
+    if(this.sortMode) {
+      this.sortMode = false;
+      this.empArray.sort((a: any, b: any) => a[key].localeCompare(b[key]));
+    } else {
+      this.sortMode = true;
+      this.empArray.sort((a: any, b: any) => b[key].localeCompare(a[key]));
+    }
+  }
+
+  public saveEmployee(){
     if(this.isApiInProgress == false){
       this.isApiInProgress= true;
       this.service.saveEmp(this.empObject).subscribe((res: any) => {
@@ -78,21 +114,21 @@ export class EmployeeComponent implements OnInit {
     //   this.getEmployee();
     // })
   
-  loadDept(){
+  private loadDept(){
     this.http.get('https://akbarapi.funplanetresort.in/api/MyRequest/GetDepartments').subscribe((res:any)=>{
       this.deptArray=res;
     })
   }
-  getEmpDeptbyId(){
+  public getEmpDeptbyId(){
     this.http.get('https://akbarapi.funplanetresort.in/api/MyRequest/GetEmployeeByDeptId?id='+this.empObject.DeptId).subscribe((res:any)=>{
       this.empArray=res;
     })
   }
-  onEdit(id:any){
+  public onEdit(id:any){
     this.empObject=id;
     this.isSidePanelOpen=true;
   }
-  empUpdate(){
+  public empUpdate(){
     this.http.post('https://akbarapi.funplanetresort.in/api/MyRequest/UpdateEmployee?id='+this.empObject.EmployeeId,this.empObject).subscribe((res: any) => {
       if (res) {
         alert('Employee Updated');
@@ -103,29 +139,35 @@ export class EmployeeComponent implements OnInit {
     })
   }
 
-  onDelete(id:any){
+  public onDelete(id:any){
     this.http.get('https://akbarapi.funplanetresort.in/api/MyRequest/DeleteEmployee?id='+id).subscribe((res:any)=>{
     
     })
   }
  
-  addEmployee(){
+  public addEmployee(){
     this.isSidePanelOpen=true;
   }
-  onCloseSidePanel(){
+  public onCloseSidePanel(){
     this.isSidePanelOpen=false;
   }
-  oncleare(){
+  public oncleare(){
     this.empObject ={
       EmployeeName:'',
       ContactNo:'',
       EmailId:'',
+
       Role:'',
       UserName:'',
       Password:'',
       DeptId: 0,
       ReportsTo: 0
     }; 
+  }
+  ngOnDestroy():void{
+    this.subcription.forEach(element=>{
+      element.unsubscribe();
+    })
   }
   
 }
