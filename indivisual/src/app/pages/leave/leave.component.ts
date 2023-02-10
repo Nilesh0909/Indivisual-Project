@@ -56,9 +56,7 @@ export class LeaveComponent implements OnInit {
       this.getAllLeavesByEmployeeId();
     }
   }
-
   getAllLeaves() {
-    debugger;
     this.http.get("https://akbarapi.funplanetresort.in/api/MyRequest/GetAllLeaves").subscribe((res: any) => {
       this.leaveArr = res;
     })

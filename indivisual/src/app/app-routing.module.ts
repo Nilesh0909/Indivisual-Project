@@ -76,6 +76,10 @@ const routes: Routes = [
       {
         path:'dept-approve-leave',
         component:ApproveLeaveComponent
+      },
+      {
+        path:'user',
+        component:UserComponent
       }
     ]
   },

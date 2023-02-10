@@ -45,7 +45,7 @@ export class EmployeeDashbordComponent implements OnInit {
     this.getEmpDash();
   }
   getEmpDash() {
-    debugger;
+
     this.http.get('https://akbarapi.funplanetresort.in/api/MyRequest/GetEmpDashboardById?id=' + this.loggedUserData.EmployeeId).subscribe((res: any) => {
       this.getAdminDeptDashArr = res;
       this.employeeDeptObj = this.getAdminDeptDashArr[0];

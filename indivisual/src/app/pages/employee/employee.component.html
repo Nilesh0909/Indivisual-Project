@@ -1,7 +1,7 @@
 <div class="row mt-3">
     <div class="col-8" [ngClass]="isSidePanelOpen?'col-8':'col-12'">
         <div class="card">
-            <div class="card-header bg-primary">
+            <div class="card-header border-dark">
                 <div class="row">
                     <div class="col-6 text-white">
                         Employee List
@@ -18,12 +18,12 @@
                    
                     <table class="table table-bordered">
                          <thead>
-                            <tr class="tr bg-primary">
-                                <th >Sr.No</th>
-                                <th (click)="sort('EmployeeName')">Employee Name</th>
-                                <th (click)="sort('ContactNo')">Contact</th>
-                                <th (click)="sort('EmailId')">Email</th>
-                                <th>Action</th>
+                            <tr class="tr text-white " style="background-color: #194457;" >
+                                <th style="width: 4%;">Sr.No</th>
+                                <th style="width: 8%;" (click)="sort('EmployeeName')">Employee Name</th>
+                                <th style="width: 5%;"(click)="sort('ContactNo')">Contact</th>
+                                <th style="width: 10%;" (click)="sort('EmailId')">Email</th>
+                                <th style="width: 10%;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -85,7 +85,7 @@
     </div>
     <div class="col-4" *ngIf="isSidePanelOpen">
         <div class="card">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header text-white" style="color: #05445E;">
                 <div class="row">
                     <div class="col-6 text-white">
                         Form
